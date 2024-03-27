@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="">
+</head>
+<body>
+    <nav>
+        <p id="HPlayer"></p>
+        <p id="HPponent"></p>
+    </nav>
+    <section>
+        <div class="dropdown">
+            <span class="coinflip">
+                <button id="tc">Toin Coss</button>
+                <span class="coinside">
+                    <ul>
+                        <li><a onclick="heads()" id="hb" href="#">Heads</a></li>
+                        <li><a onclick="tails()" id="tb" href="#">Tails</a></li>
+                    </ul>
+                </span>
+            </span>
+            <p id="result"></p>
+        </div>
+        
+    </section>
+    <section>
+        <p id="playchoice"></p>
+        <p id="event1"></p>
+        <p id="event2"></p>
+        <p id="event3"></p>
+    </section>
+    <section>
+        <button onclick="playerAttack()" id="atb">Attack</button>
+        <button onclick="playerDefend()" id="dfb">Defend</button>
+    </section>
+    <section>
+        <button onclick="resetBtn()" id="rtb">Reset.</button>
+    </section>
+
+    <script>
+        var playerHP = 100; 
+        var opponentHP = 100;
+        var choice, playerdmg, oppdmg, action, placeholder;
+
+        const atkbut = document.getElementById("atb");
+        const defbut = document.getElementById("dfb");
+        const resbut = document.getElementById("rtb");
+        const tossbut = document.getElementById("tc");
+
+        document.getElementById("HPlayer").innerHTML = "Player: " + playerHP;
+        document.getElementById("HPponent").innerHTML = "Opponent " + opponentHP;
+
+        resbut.disabled = true;
+
+        function heads(){
+            choice = 'head';
+            tossCoin('head');
+        }
+        function tails(){
+            choice = 'tail';
+            tossCoin('tail');
+        }
+
+        function tossCoin(choice){
+            var rand = Math.round(Math.random());
+            var coin, result;
+            if(rand == 0){
+                coin = 'head';
+                if(choice == coin){
+                    document.getElementById("result").innerHTML = "Coin is head. You chose head!";
+                    defbut.disabled = true;
+                }
+                else{
+                    document.getElementById("result").innerHTML = "Coin is head. You chose tail!";
+                }
+            }
+            else{
+                coin = 'tail';
+                if(choice == coin){
+                    document.getElementById("result").innerHTML = "Coin is tail. You chose tail!";
+                    defbut.disabled = true;
+                }
+                else{
+                    document.getElementById("result").innerHTML = "Coin is tail. You chose head!";
+                }
+            }
+            tossbut.disabled = true;
+            resbut.disabled = false;
+        }
+
+        function calculateDamage(){
+            var damage = Math.round(Math.random()*4)+1;
+            return damage;
+        }
+
+        function opponentAction(){
+            action = Math.round(Math.random());
+            return action;
+        }
+
+        function playerAttack(){
+            defbut.disabled = false;
+            document.getElementById("playchoice").innerHTML = "<b>You will attack!</b>\n";
+            playerdmg = calculateDamage();
+            if(opponentAction() == 1){
+                oppdmg = calculateDamage();
+                playerHP = playerHP - oppdmg;
+                opponentHP = opponentHP - playerdmg;
+                document.getElementById("HPlayer").innerHTML = "Player: " + playerHP;
+                document.getElementById("HPponent").innerHTML = "Opponent: " + opponentHP;
+                document.getElementById("event1").innerHTML = "You inflict " + playerdmg + " damage";
+                document.getElementById("event2").innerHTML = "Opponent inflicts " + oppdmg + " damage";
+                document.getElementById("event3").innerHTML = " ";
+                
+            }
+            else{
+                if(playerdmg - 3 <= 0){
+                    document.getElementById("event1").innerHTML = "You attempted to inflict " + playerdmg + " damage";
+                    document.getElementById("event2").innerHTML = "The opponent completely blocked the attack";
+                    document.getElementById("event3").innerHTML = " ";
+                }
+                else{
+                    placeholder = playerdmg - 3;
+                    opponentHP = opponentHP - placeholder;
+                    document.getElementById("event1").innerHTML = "You attempted to inflict " + playerdmg + " damage";
+                    document.getElementById("event2").innerHTML = "Opponent defended from the attack";
+                    document.getElementById("event3").innerHTML = "You inflicted " + placeholder + " damage";
+                    document.getElementById("HPponent").innerHTML = "Opponent: " + opponentHP;
+                }
+            }
+            gameOver();
+        }
+
+        function playerDefend(){
+            document.getElementById("playchoice").innerHTML = "<b>You will defend!</b>\n";
+            if(opponentAction() == 1){
+                oppdmg = calculateDamage();
+                if(oppdmg - 3 <= 0){
+                    document.getElementById("event1").innerHTML = "Opponent attempted to inflict " + oppdmg + " damage";
+                    document.getElementById("event2").innerHTML = "You completely blocked the attack";
+                    document.getElementById("event3").innerHTML = " ";
+                }
+                else{
+                    placeholder = oppdmg - 3;
+                    playerHP = playerHP - placeholder;
+                    document.getElementById("HPlayer").innerHTML = "Player: " + playerHP;
+                    document.getElementById("event1").innerHTML = "Opponent attempted to inflict " + oppdmg + " damage";
+                    document.getElementById("event2").innerHTML = "You defended from the attack";
+                    document.getElementById("event3").innerHTML = "Opponent inflicts " + placeholder + " damage";
+                }
+            }
+            else{
+                document.getElementById("event1").innerHTML = "Both chose to defend";
+                document.getElementById("event2").innerHTML = " ";
+                document.getElementById("event3").innerHTML = " ";
+            }
+            gameOver();
+        }
+
+        function gameOver(){
+            if(opponentHP <= 0){
+                opponentHP = 0;
+                document.getElementById("HPponent").innerHTML = "Opponent: " + opponentHP;
+                document.getElementById("event1").innerHTML = "<b>Player wins!</b>";
+                document.getElementById("event2").innerHTML = " ";
+                document.getElementById("event3").innerHTML = " ";
+            }
+            if(playerHP <= 0){
+                playerHP = 0;
+                document.getElementById("HPlayer").innerHTML = "Player: " + playerHP;
+                document.getElementById("event1").innerHTML = "<b>Opponent wins!</b>";
+                document.getElementById("event2").innerHTML = " ";
+                document.getElementById("event3").innerHTML = " ";
+            }
+        }
+
+        function resetBtn(){
+            opponentHP = 100;
+            playerHP = 100;
+
+            document.getElementById("HPlayer").innerHTML = "Player: " + playerHP;
+            document.getElementById("HPponent").innerHTML = "Opponent: " + opponentHP;
+
+            document.getElementById("result").innerHTML = " ";
+            document.getElementById("playchoice").innerHTML = " ";
+            document.getElementById("playact").innerHTML = " ";
+            document.getElementById("opact").innerHTML = " ";
+
+            tossbut.disabled = false;
+            defbut.disabled = false;
+            resbut.disabled = true;
+        }
+    </script>
+</body>
+</html>
