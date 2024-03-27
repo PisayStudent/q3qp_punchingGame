@@ -7,34 +7,56 @@
     border: none;
     border-radius: 15px;
     cursor: pointer;
-  }
+} /* Button Layout */
 
-  .dropbtn:hover, .dropbtn:focus {
-    background-color: #22272b;
-  }
+.dropbtn:hover, .dropbtn:focus {
+background-color: #22272b;
+}
 
-  .dropdown {
-    position: relative;
-    display: inline-block;
-  }
+.dropdown {
+position: relative;
+display: inline-block;
+} /* Dropdown Layout */
 
-  .dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f1f1f1;
-    min-width: 8vw;
-    text-align: center;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-  }
+.dropdown-content {
+display: none;
+position: absolute;
+background-color: #f1f1f1;
+min-width: 8vw;
+text-align: center;
+box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+z-index: 1;
+} /* Dropdown Layout */
 
-  .dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-  }
+.dropdown-content a {
+color: black;
+padding: 12px 16px;
+text-decoration: none;
+display: block;
+} /* Dropdown Layout */
 
-  .dropdown-content a:hover {background-color: #ddd;}
+.dropdown-content a:hover {background-color: #ddd;} /* Dropdown Layout */
 
-  .show {display:block;}
+.show {display:block;}
+
+#toilet{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+} /* Toilet Alignment */
+
+#HPlayer{
+    margin: 60px;
+} /* HP Allignment */
+
+.opts{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px;
+} /* Layout of the Text */
+
+.atkOrDef{
+    margin: 5px;
+} /* Layout of the Text */

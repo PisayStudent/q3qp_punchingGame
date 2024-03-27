@@ -3,16 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Punching Game</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <nav>
-        <p id="HPlayer"></p>
-        <p id="HPponent"></p>
-    </nav>
+
     <section>
-        <div class="dropdown">
+        <div class="dropdown"> <!--Dropdown Option for Heads and Tails for the Player-->
             <button onclick ="myFunction()" class="dropbtn" id="tc">Coin Toss</button>
             <div id="myDropdown" class="dropdown-content">
                 <a onclick="heads()" id="hb" href="#">Heads</a>
@@ -21,21 +18,31 @@
             <p id="result"></p>
         </div>
     </section>
-    <section>
+
+    <section> <!--<p id> is used to specifically target and access specific Elements in Javascript-->
         <p id="playchoice"></p>
         <p id="event1"></p>
         <p id="event2"></p>
         <p id="event3"></p>
     </section>
-    <section>
-        <button onclick="playerAttack()" id="atb">Attack</button>
-        <button onclick="playerDefend()" id="dfb">Defend</button>
+
+    <section id="toilet" class="main"> <!-- Skibidi Toilet in Full Health -->
+        <p id="HPponent"></p>
+        <img id="image" src="toiletFull.png" width="247px" height="417px">
+        <p id="HPlayer"></p>
     </section>
-    <section>
+
+    <section class="opts"> <!-- Buttons for the option to Attack and Defend -->
+        <button onclick="playerAttack()" id="atb" class="atkOrDef">Attack</button>
+        <button onclick="playerDefend()" id="dfb" class="atkOrDef">Defend</button>
+    </section>
+    <section class="opts">
         <button onclick="resetBtn()" id="rtb">Reset.</button>
     </section>
 
+
     <script>
+        // The Set Health of the Player and Skibidi Toilet's Health which is 100
         var playerHP = 100; 
         var opponentHP = 100;
         var choice, playerdmg, oppdmg, action, placeholder;
@@ -45,19 +52,31 @@
         const resbut = document.getElementById("rtb");
         const tossbut = document.getElementById("tc");
 
+        // Indicates the Player and Opponents Health
         document.getElementById("HPlayer").innerHTML = "Player: " + playerHP;
         document.getElementById("HPponent").innerHTML = "Opponent: " + opponentHP;
 
         resbut.disabled = true;
 
+
+        // Function for Heads
         function heads(){
             choice = 'head';
             tossCoin('head');
         }
+
+
+        // Function for Tails
         function tails(){
             choice = 'tail';
             tossCoin('tail');
         }
+
+        // Function TossCoin, as indicated by sir's instructions, the player has the option to choose 
+        // either 'Heads' or 'Tails'. The program will generate a random result that will produce again
+        // Either 'Heads' or 'Tails', if the player matches with the program, the player can have the
+        // The player has the advantage to attack first however the defend button is disabled
+        // If the player does not match with the program, they will not gain the first move and will have the option to attack or defend
 
         function tossCoin(choice){
             var rand = Math.round(Math.random());
@@ -89,12 +108,12 @@
         function calculateDamage(){
             var damage = Math.round(Math.random()*4)+1;
             return damage;
-        }
+        } // Randomized Calculation for the damage, it ranges from 1 - 5.
 
         function opponentAction(){
             action = Math.round(Math.random());
             return action;
-        }
+        } // Declaring and Randomizing the Function for the action of the opponent
 
         function playerAttack(){
             defbut.disabled = false;
@@ -109,14 +128,15 @@
                 document.getElementById("event1").innerHTML = "You inflict " + playerdmg + " damage";
                 document.getElementById("event2").innerHTML = "Opponent inflicts " + oppdmg + " damage";
                 document.getElementById("event3").innerHTML = " ";
-                
-            }
+            } // If the Player chose to attack and the opponent randomly attacks as well.
+
             else{
                 if(playerdmg - 3 <= 0){
                     document.getElementById("event1").innerHTML = "You attempted to inflict " + playerdmg + " damage";
                     document.getElementById("event2").innerHTML = "The opponent completely blocked the attack";
                     document.getElementById("event3").innerHTML = " ";
-                }
+                } // If the Player chose to attack and the opponent decided to completely blocked the attack.
+
                 else{
                     placeholder = playerdmg - 3;
                     opponentHP = opponentHP - placeholder;
@@ -124,8 +144,10 @@
                     document.getElementById("event2").innerHTML = "Opponent defended from the attack";
                     document.getElementById("event3").innerHTML = "You inflicted " + placeholder + " damage";
                     document.getElementById("HPponent").innerHTML = "Opponent: " + opponentHP;
-                }
+                } // If the Player chose to attack and the opponent defended from the attack
             }
+
+            toiletHP(opponentHP);
             gameOver();
         }
 
@@ -137,7 +159,7 @@
                     document.getElementById("event1").innerHTML = "Opponent attempted to inflict " + oppdmg + " damage";
                     document.getElementById("event2").innerHTML = "You completely blocked the attack";
                     document.getElementById("event3").innerHTML = " ";
-                }
+                } // If the Player chose to defend and the opponent decided to inflict
                 else{
                     placeholder = oppdmg - 3;
                     playerHP = playerHP - placeholder;
@@ -145,13 +167,14 @@
                     document.getElementById("event1").innerHTML = "Opponent attempted to inflict " + oppdmg + " damage";
                     document.getElementById("event2").innerHTML = "You defended from the attack";
                     document.getElementById("event3").innerHTML = "Opponent inflicts " + placeholder + " damage";
-                }
+                } // If the Player chose to defend and the opponent attempted to inflict the attack
+    
             }
             else{
                 document.getElementById("event1").innerHTML = "Both chose to defend";
                 document.getElementById("event2").innerHTML = " ";
                 document.getElementById("event3").innerHTML = " ";
-            }
+            }  // If both the Player and Opponent chose to defend
             gameOver();
         }
 
@@ -162,14 +185,14 @@
                 document.getElementById("event1").innerHTML = "<b>Player wins!</b>";
                 document.getElementById("event2").innerHTML = " ";
                 document.getElementById("event3").innerHTML = " ";
-            }
+            } // Player wins if the Opponent's HP is equal and reaches first to zero.
             if(playerHP <= 0){
                 playerHP = 0;
                 document.getElementById("HPlayer").innerHTML = "Player: " + playerHP;
                 document.getElementById("event1").innerHTML = "<b>Opponent wins!</b>";
                 document.getElementById("event2").innerHTML = " ";
                 document.getElementById("event3").innerHTML = " ";
-            }
+            } // Opponent wins if the Player's HP is equal and reaches first to Zero
         }
 
         function resetBtn(){
@@ -188,11 +211,13 @@
             tossbut.disabled = false;
             defbut.disabled = false;
             resbut.disabled = true;
-        }
+
+            toiletHP(opponentHP);
+        } // Resets the entire game.
 
         function myFunction() {
             document.getElementById("myDropdown").classList.toggle("show");
-        }
+        } // Dropdown Function of the Coin Toss
 
         window.onclick = function(event) {
         if (!event.target.matches('.dropbtn')) {
@@ -207,6 +232,30 @@
         }
     }
 
+        function toiletHP(opponentHP){
+            var image = document.getElementById("image");
+
+            if (opponentHP > 80){
+                image = image.src="toiletFull.png";
+            } // If Toilet is Above 80
+
+            else if ((opponentHP <= 80)&&(opponentHP > 60)){
+                image = image.src="toiletEighty.png";
+            } // If Toilet is 80 and Greater than 60
+            else if ((opponentHP <= 60)&&(opponentHP > 40)){
+                image = image.src="toiletSixty.png";
+            } // If Toilet is 60 and Greater than 40
+            else if ((opponentHP <= 40)&&(opponentHP > 20)){
+                image =image.src="toiletForty.png";
+            } // If Toilet is 40 and Greater than 20
+            else if ((opponentHP <= 20)&&(opponentHP > 0)){
+                image = image.src="toiletTwenty.png";
+            } // If Toilet is 20 and Greater than 0
+            else {
+                image = image.src="toiletdead.png";
+            } // If Toilet has no health
+        }
+ 
     </script>
 </body>
 </html>
