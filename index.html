@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1 id="head"></h1>
+    <p id="date"></p>
+    <p id="message"></p>
+    <button onclick="startQuiz()">Start Quiz</button>
+    <script>
+        var c = prompt("Input name to continue: ");
+        if(c.length > 0){
+            document.getElementById("head").innerHTML = "Welcome to Wendy's, " + c;
+            document.getElementById("date").innerHTML = "Date today: " + new Date();
+
+            function getNumA(){
+                var a = Math.round(Math.random()*10) + 1;
+            }
+            function getNumB(){
+                var b = Math.round(Math.random()*10) + 1;
+            }
+            function getArith(){
+                var a = getNumA();
+                var b = getNumB();
+                var d = Math.round(Math.random()*5) + 1;
+                var t;
+
+                if(d == 1){
+                    t = a + b;
+                }
+                else if(d == 2){
+                    t = a - b;
+                }
+                else if(d == 3){
+                    t = a * b;
+                }
+                else if(d == 4){
+                    t = a / b;
+                }
+                else{
+                    t = a % b;
+                }
+                return t
+            }
+            function getAnswer(){
+                var a = getNumA();
+                var b = getNumB();
+                var d = Math.round(Math.random()*5) + 1;
+                var m;
+
+                if(d == 1){
+                    m = a + b;
+                }
+                else if(d == 2){
+                    m = a - b;
+                }
+                else if(d == 3){
+                    m = a * b;
+                }
+                else if(d == 4){
+                    m = a / b;
+                }
+                else{
+                    m = a % b;
+                }
+                return m
+            }
+            function getEquation(){
+                var a = getNumA().toString();
+                var b = getNumB().toString();
+                var t = getArith();
+                return a + t + b;
+            }
+            function startQuiz(){
+                var r;
+                getEquation();
+                var z = prompt("Hello, " + c + "\nThe equation is: " + getEquation);
+
+                if(z!=0){
+                    var z = prompt("Hello, " + c + "\nTry Again. The equation is: " + getAnswer());
+                }
+                document.getElementById("message").innerHTML = "Congratulations " + c + " for getting the answer right!";
+            }
+        }
+    </script>
+</body>
+</html>
