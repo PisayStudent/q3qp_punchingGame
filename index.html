@@ -72,6 +72,8 @@
      atkbut.disabled = true;
      defbut.disabled = true;
 
+     healthStatus();
+  
  // Function for Heads
      function heads(){
          choice = 'head';
@@ -204,7 +206,7 @@
              document.getElementById("event2").innerHTML = " ";
              document.getElementById("event3").innerHTML = " ";
          } // If both the Player and Opponent chose to defend
-         healthStatus()
+         healthStatus();
          checkHealth();
      }
 
