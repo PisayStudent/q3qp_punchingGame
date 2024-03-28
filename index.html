@@ -166,6 +166,10 @@
                 cameraHP(playerHP);
                 toiletHP(opponentHP);
             }
+            else{
+                deadlockHP(playerHP);
+                wingmanHP(opponentHP);
+            }
         }
 
         function playerDefend(){
@@ -286,7 +290,6 @@
 
         function cameraHP(playerHP){
             var image2 = document.getElementById("image2");
-
             if (playerHP > 80){
                 image2 = image2.src="cameraFull.png";
             } // If Camera is Above 80
@@ -307,6 +310,50 @@
             } // If Camera has no health
         }
 
+        function wingmanHP(opponentHP){
+            var image = document.getElementById("image1");
+            if (opponentHP > 80){
+                image = image1.src="wingmanFull.png";
+            }
+            else if ((opponentHP <= 80)&&(opponentHP > 60)){
+                image = image1.src="wingmanEighty.png";
+            }
+            else if ((opponentHP <= 60)&&(opponentHP > 40)){
+                image = image1.src="wingmanSixty.png";
+            }
+            else if ((opponentHP <= 40)&&(opponentHP > 20)){
+                image =image1.src="wingmanForty.png";
+            }
+            else if ((opponentHP <= 20)&&(opponentHP > 0)){
+                image = image1.src="wingmanTwenty.png";
+            }
+            else {
+                image = image1.src="wingmandead.png";
+            }
+        }
+
+        function deadlockHP(playerHP){
+            var image2 = document.getElementById("image2");
+            if (playerHP > 80){
+                image = image2.src="didluckFull.png";
+            }
+            else if ((playerHP <= 80)&&(playerHP > 60)){
+                image = image2.src="didluckEighty.png";
+            }
+            else if ((playerHP <= 60)&&(playerHP > 40)){
+                image = image2.src="didluckSixty.png";
+            }
+            else if ((playerHP <= 40)&&(playerHP > 20)){
+                image =image2.src="didluckForty.png";
+            }
+            else if ((playerHP <= 20)&&(playerHP > 0)){
+                image = image2.src="didluckTwenty.png";
+            }
+            else{
+                image = image2.src="didluckdead.png";
+            }
+        }
+
         function skibidiTheme(){
             theme = 1;
             image1.src="toiletFull.png";
@@ -315,7 +362,7 @@
         }
         function valoTheme(){
             theme = 2;
-            image1.src="";
+            image1.src="wingmanFull.png";
             image2.src="didluckFull.png";
             bg.src="pearl.jpg";
         }
