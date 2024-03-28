@@ -1,19 +1,25 @@
-.dropbtn {
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kode+Mono&display=swap');
+
+.dropbtn{
     background-color: #22272b;
     color: white;
     padding: 10px;
-    font-size: 12px;
-    width: 8vw;
+    font-size: 75%;
+    width: 12vw;
     border: none;
-    border-radius: 15px;
+    border-top-left-radius: 7.5px;
+    border-top-right-radius: 15px;
+    border-bottom-left-radius: 7.5px;
+    border-bottom-right-radius: 7.5px;
     cursor: pointer;
 } /* Button Layout */
 
-.dropbtn:hover, .dropbtn:focus {
+.dropbtn:hover, .dropbtn:focus{
 background-color: #22272b;
 }
 
-.dropdown {
+.dropdown{
 position: relative;
 display: inline-block;
 } /* Dropdown Layout */
@@ -22,41 +28,103 @@ display: inline-block;
 display: none;
 position: absolute;
 background-color: #f1f1f1;
-min-width: 8vw;
+min-width: 12vw;
 text-align: center;
 box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 z-index: 1;
 } /* Dropdown Layout */
 
-.dropdown-content a {
+.dropdown-content a{
 color: black;
+font-size: 75%;
 padding: 12px 16px;
 text-decoration: none;
 display: block;
 } /* Dropdown Layout */
 
-.dropdown-content a:hover {background-color: #ddd;} /* Dropdown Layout */
+.dropdown-content a:hover{
+    background-color: #ddd;
+} /* Dropdown Layout */
 
 .show {display:block;}
 
-#toilet{
-    display: flex;
-    flex-direction: column;
+.fight{
+    display: inline-block;
+    position: absolute;
+    border: 1px black solid;
+    margin-left: 2.5vw;
+    width: 71vw;
+    height: 57vh;
+} /* */
+
+#toilet img{
+    position: absolute;
+    top: 5%;
+    left: 56.5%;
+}
+
+h1{
+    font-family: "Permanent Marker", cursive;
+    font-weight: 400;
+    font-style: normal;
+    text-align: center;
+}
+
+h3{
+    font-family: "Kode Mono", monospace;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 160%;
+}
+
+p{
+    font-family: "Kode Mono", monospace;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+button{
+    font-family: "Kode Mono", monospace;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+a{
+    font-family: "Kode Mono", monospace;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.flipcoin{
+    border: 1px black solid;
+    border-radius: 5px;
+    width: 25vw;
+    height: 57vh;
+    display: inline-block;
+    text-align: center;
+}
+
+#hpbar{
+    display: inline-flex;
     justify-content: center;
-    align-items: center;
-} /* Toilet Alignment */
-
-#HPlayer{
-    margin: 60px;
-} /* HP Allignment */
-
+    gap: 7vw;
+}
+#hpbar p{
+    padding-left: 15vw;
+}
 .opts{
     display: flex;
+    border: 1px black solid;
+    border-radius: 5px;
+    width: 85vw;
     justify-content: center;
-    align-items: center;
-    margin: 5px;
-} /* Layout of the Text */
-
-.atkOrDef{
-    margin: 5px;
-} /* Layout of the Text */
+    gap: 10vw;
+    padding-top: 1.5vh;
+    padding-bottom: 1.5vh;
+    margin-top: 2.5vh;
+    margin-left: 6vw;
+}
