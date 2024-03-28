@@ -61,6 +61,8 @@
         document.getElementById("HPponent").innerHTML = "Opponent: " + opponentHP;
 
         resbut.disabled = true;
+        atkbut.disabled = true;
+        defbut.disabled = true;
 
 
         // Function for Heads
@@ -85,24 +87,25 @@
         function tossCoin(choice){
             var rand = Math.round(Math.random());
             var coin, result;
+            atkbut.disabled = false;
             if(rand == 0){
                 coin = 'head';
                 if(choice == coin){
                     document.getElementById("result").innerHTML = "Coin is head. You chose head!";
-                    defbut.disabled = true;
                 }
                 else{
                     document.getElementById("result").innerHTML = "Coin is head. You chose tail!";
+                    defbut.disabled = false;
                 }
             }
             else{
                 coin = 'tail';
                 if(choice == coin){
                     document.getElementById("result").innerHTML = "Coin is tail. You chose tail!";
-                    defbut.disabled = true;
                 }
                 else{
                     document.getElementById("result").innerHTML = "Coin is tail. You chose head!";
+                    defbut.disabled = false;
                 }
             }
             tossbut.disabled = true;
