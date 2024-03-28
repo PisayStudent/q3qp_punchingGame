@@ -7,8 +7,10 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <h1>Ready. FIGHT!</h1>
 
-    <section>
+    <section class="flipcoin">
+        <h3>Click the button to toss a coin.</h3>
         <div class="dropdown"> <!--Dropdown Option for Heads and Tails for the Player-->
             <button onclick ="myFunction()" class="dropbtn" id="tc">Coin Toss</button>
             <div id="myDropdown" class="dropdown-content">
@@ -16,30 +18,32 @@
                 <a onclick="tails()" id="tb" href="#">Tails</a>
             </div>
             <p id="result"></p>
+            <br>
+            <p>Events:</p>
+            <section> <!--<p id> is used to specifically target and access specific Elements in Javascript-->
+                <p id="playchoice"></p>
+                <p id="event1"></p>
+                <p id="event2"></p>
+                <p id="event3"></p>
+            </section>
         </div>
     </section>
 
-    <section> <!--<p id> is used to specifically target and access specific Elements in Javascript-->
-        <p id="playchoice"></p>
-        <p id="event1"></p>
-        <p id="event2"></p>
-        <p id="event3"></p>
+    <section class="fight">
+        <section id="hpbar">
+            <p id="HPlayer"></p> 
+            <p id="HPponent"></p>
+        </section>
+        <section id="toilet" class="main"> <!-- Skibidi Toilet in Full Health -->
+            <img id="image" src="toiletFull.png" width="247px" height="417px">
+        </section>
     </section>
 
-    <section id="toilet" class="main"> <!-- Skibidi Toilet in Full Health -->
-        <p id="HPponent"></p>
-        <img id="image" src="toiletFull.png" width="247px" height="417px">
-        <p id="HPlayer"></p>
-    </section>
-
-    <section class="opts"> <!-- Buttons for the option to Attack and Defend -->
+    <section class="opts"> <!-- Buttons for the option to Attack, Defend, and Reset -->
         <button onclick="playerAttack()" id="atb" class="atkOrDef">Attack</button>
         <button onclick="playerDefend()" id="dfb" class="atkOrDef">Defend</button>
-    </section>
-    <section class="opts">
         <button onclick="resetBtn()" id="rtb">Reset.</button>
     </section>
-
 
     <script>
         // The Set Health of the Player and Skibidi Toilet's Health which is 100
@@ -185,6 +189,8 @@
                 document.getElementById("event1").innerHTML = "<b>Player wins!</b>";
                 document.getElementById("event2").innerHTML = " ";
                 document.getElementById("event3").innerHTML = " ";
+                atkbut.disabled = true;
+                defbut.disabled = true;
             } // Player wins if the Opponent's HP is equal and reaches first to zero.
             if(playerHP <= 0){
                 playerHP = 0;
@@ -192,6 +198,8 @@
                 document.getElementById("event1").innerHTML = "<b>Opponent wins!</b>";
                 document.getElementById("event2").innerHTML = " ";
                 document.getElementById("event3").innerHTML = " ";
+                atkbut.disabled = true;
+                defbut.disabled = true;
             } // Opponent wins if the Player's HP is equal and reaches first to Zero
         }
 
@@ -215,22 +223,22 @@
             toiletHP(opponentHP);
         } // Resets the entire game.
 
-        function myFunction() {
+        function myFunction(){
             document.getElementById("myDropdown").classList.toggle("show");
         } // Dropdown Function of the Coin Toss
 
-        window.onclick = function(event) {
-        if (!event.target.matches('.dropbtn')) {
-            var dropdowns = document.getElementsByClassName("dropdown-content");
-            var i;
-            for (i = 0; i < dropdowns.length; i++) {
-                var openDropdown = dropdowns[i];
-                if (openDropdown.classList.contains('show')) {
+        window.onclick = function(event){
+            if(!event.target.matches('.dropbtn')){
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                var i;
+                for(i = 0; i < dropdowns.length; i++){
+                    var openDropdown = dropdowns[i];
+                    if(openDropdown.classList.contains('show')){
                     openDropdown.classList.remove('show');
+                    }
                 }
             }
         }
-    }
 
         function toiletHP(opponentHP){
             var image = document.getElementById("image");
