@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Ready. FIGHT!</h1>
+    <h1>The Simulation, "Ready. FIGHT!"</h1>
 
     <section class="flipcoin">
         <h3>Click the button to toss a coin.</h3>
@@ -34,9 +34,13 @@
             <p id="HPlayer"></p> 
             <p id="HPponent"></p>
         </section>
-        <section id="toilet" class="main"> <!-- Skibidi Toilet in Full Health -->
-            <img id="image" src="toiletFull.png" width="247px" height="417px">
+        <section id="foe" class="main"> <!-- Skibidi Toilet in Full Health -->
+            <img id="image1" src=" ">
         </section>
+        <section id="you" class="main"> <!---Cameraman in Full Health -->
+            <img id="image2" src=" ">
+        </section>
+        <img id="bg" src=" ">
     </section>
 
     <section class="opts"> <!-- Buttons for the option to Attack, Defend, and Reset -->
@@ -45,11 +49,17 @@
         <button onclick="resetBtn()" id="rtb">Reset.</button>
     </section>
 
+    <section class="themes">
+        <p>Themes (Click one before you start!): </p>
+        <button onclick="skibidiTheme()">Skibidi Theme</button>
+        <button onclick="valoTheme()">Valorant Theme</button>
+    </section>
+
     <script>
         // The Set Health of the Player and Skibidi Toilet's Health which is 100
         var playerHP = 100; 
         var opponentHP = 100;
-        var choice, playerdmg, oppdmg, action, placeholder;
+        var theme, choice, playerdmg, oppdmg, action, placeholder;
 
         const atkbut = document.getElementById("atb");
         const defbut = document.getElementById("dfb");
@@ -130,8 +140,6 @@
                 oppdmg = calculateDamage();
                 playerHP = playerHP - oppdmg;
                 opponentHP = opponentHP - playerdmg;
-                document.getElementById("HPlayer").innerHTML = "Player: " + playerHP;
-                document.getElementById("HPponent").innerHTML = "Opponent: " + opponentHP;
                 document.getElementById("event1").innerHTML = "You inflict " + playerdmg + " damage";
                 document.getElementById("event2").innerHTML = "Opponent inflicts " + oppdmg + " damage";
                 document.getElementById("event3").innerHTML = " ";
@@ -150,12 +158,14 @@
                     document.getElementById("event1").innerHTML = "You attempted to inflict " + playerdmg + " damage";
                     document.getElementById("event2").innerHTML = "Opponent defended from the attack";
                     document.getElementById("event3").innerHTML = "You inflicted " + placeholder + " damage";
-                    document.getElementById("HPponent").innerHTML = "Opponent: " + opponentHP;
                 } // If the Player chose to attack and the opponent defended from the attack
             }
-
-            toiletHP(opponentHP);
-            gameOver();
+            healthStatus()
+            checkHealth();
+            if(theme == 1){
+                cameraHP(playerHP);
+                toiletHP(opponentHP);
+            }
         }
 
         function playerDefend(){
@@ -170,7 +180,6 @@
                 else{
                     placeholder = oppdmg - 3;
                     playerHP = playerHP - placeholder;
-                    document.getElementById("HPlayer").innerHTML = "Player: " + playerHP;
                     document.getElementById("event1").innerHTML = "Opponent attempted to inflict " + oppdmg + " damage";
                     document.getElementById("event2").innerHTML = "You defended from the attack";
                     document.getElementById("event3").innerHTML = "Opponent inflicts " + placeholder + " damage";
@@ -182,10 +191,16 @@
                 document.getElementById("event2").innerHTML = " ";
                 document.getElementById("event3").innerHTML = " ";
             }  // If both the Player and Opponent chose to defend
-            gameOver();
+            healthStatus()
+            checkHealth();
         }
 
-        function gameOver(){
+        function healthStatus(){
+            document.getElementById("HPlayer").innerHTML = "Player: " + playerHP;
+            document.getElementById("HPponent").innerHTML = "Opponent: " + opponentHP;
+        }
+
+        function checkHealth(){
             if(opponentHP <= 0){
                 opponentHP = 0;
                 document.getElementById("HPponent").innerHTML = "Opponent: " + opponentHP;
@@ -220,10 +235,14 @@
             document.getElementById("event3").innerHTML = " ";
 
             tossbut.disabled = false;
-            defbut.disabled = false;
+            atkbut.disabled = true;
+            defbut.disabled = true;
             resbut.disabled = true;
-
-            toiletHP(opponentHP);
+            
+            image1.src=" ";
+            image2.src=" ";
+            bg.src=" ";
+            
         } // Resets the entire game.
 
         function myFunction(){
@@ -244,12 +263,10 @@
         }
 
         function toiletHP(opponentHP){
-            var image = document.getElementById("image");
-
+            var image = document.getElementById("image1");
             if (opponentHP > 80){
                 image = image.src="toiletFull.png";
             } // If Toilet is Above 80
-
             else if ((opponentHP <= 80)&&(opponentHP > 60)){
                 image = image.src="toiletEighty.png";
             } // If Toilet is 80 and Greater than 60
@@ -266,7 +283,42 @@
                 image = image.src="toiletdead.png";
             } // If Toilet has no health
         }
- 
+
+        function cameraHP(playerHP){
+            var image2 = document.getElementById("image2");
+
+            if (playerHP > 80){
+                image2 = image2.src="cameraFull.png";
+            } // If Camera is Above 80
+            else if ((playerHP <= 80)&&(playerHP > 60)){
+                image2 = image2.src="cameraEighty.png";
+            } // If Camera is 80 and Greater than 60
+            else if ((playerHP <= 60)&&(playerHP > 40)){
+                image2 = image2.src="cameraSixty.png";
+            } // If Camera is 60 and Greater than 40
+            else if ((playerHP <= 40)&&(playerHP > 20)){
+                image2 =image2.src="cameraForty.png";
+            } // If Camera is 40 and Greater than 20
+            else if ((playerHP <= 20)&&(playerHP > 0)){
+                image2 = image2.src="cameraTwenty.png";
+            } // If Camera is 20 and Greater than 0
+            else {
+                image2 = image2.src="cameradead.png";
+            } // If Camera has no health
+        }
+
+        function skibidiTheme(){
+            theme = 1;
+            image1.src="toiletFull.png";
+            image2.src="cameraFull.png";
+            bg.src="sewer.png"
+        }
+        function valoTheme(){
+            theme = 2;
+            image1.src="";
+            image2.src="didluckFull.png";
+            bg.src="pearl.jpg";
+        }
     </script>
 </body>
 </html>
