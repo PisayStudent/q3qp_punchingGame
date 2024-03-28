@@ -1,5 +1,10 @@
+/* Fonts for text */
 @import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Kode+Mono&display=swap');
+
+body{
+    background-color: #dfecf8;
+} /* Background Color */
 
 .dropbtn{
     background-color: #22272b;
@@ -46,7 +51,7 @@ display: block;
     background-color: #ddd;
 } /* Dropdown Layout */
 
-.show {display:block;}
+.show {display:block;} /* Dropdown Layout */
 
 .fight{
     display: inline-block;
@@ -55,11 +60,11 @@ display: block;
     margin-left: 2.5vw;
     width: 71vw;
     height: 57vh;
-} /* */
+} /* Adjusting the Battle Panel of the game*/
 
 .fight p{
     color: rgb(145, 145, 145);
-}
+}/* Adjusting Battle Panel text color */
 
 #foe img{
     position: absolute;
@@ -67,7 +72,7 @@ display: block;
     left: 56.5%;
     width: 17vw;
     height: 23vw;
-}
+} /* Adjustig Enemy's Image */
 
 #you img{
   position: absolute;
@@ -75,14 +80,14 @@ display: block;
   right: 61%;
   width: 17vw;
   height: 23vw;
-}
+}  /* Adjusting Player's Image */
 
 h1{
     font-family: "Permanent Marker", cursive;
     font-weight: 400;
     font-style: normal;
     text-align: center;
-}
+} /* Decorating Title Text */
 
 h3{
     font-family: "Kode Mono", monospace;
@@ -90,28 +95,29 @@ h3{
     font-weight: 400;
     font-style: normal;
     font-size: 160%;
-}
+} /* Decorating Title Text */
 
 p{
     font-family: "Kode Mono", monospace;
     font-optical-sizing: auto;
     font-weight: 400;
     font-style: normal;
-}
+} /* Decorating Paragraph Text */
 
 button{
     font-family: "Kode Mono", monospace;
     font-optical-sizing: auto;
     font-weight: 400;
     font-style: normal;
-}
+    font-weight: bold;
+} /* Decorating Button Text */
 
 a{
     font-family: "Kode Mono", monospace;
     font-optical-sizing: auto;
     font-weight: 400;
     font-style: normal;
-}
+} /* Decorating link text */
 
 .flipcoin{
     border: 1px black solid;
@@ -120,16 +126,21 @@ a{
     height: 57vh;
     display: inline-block;
     text-align: center;
-}
+    background-color: aliceblue;
+} /* Flipcoin adjustment and decoration */
 
 #hpbar{
     display: inline-flex;
     justify-content: center;
     gap: 7vw;
-}
+} /* HP Bar indicator adjustment */
+
 #hpbar p{
-    padding-left: 15vw;
-}
+    margin-left: 15vw;
+    background-color: #ddd;
+    color: black;
+} /* HP Bar indicator adjustment */
+
 .opts{
     display: flex;
     border: 1px black solid;
@@ -141,7 +152,12 @@ a{
     padding-bottom: 1.5vh;
     margin-top: 2.5vh;
     margin-left: 6vw;
-}
+    background-color: #69706e;
+} /* Option to Attack, Defend and Reset Adjustment */
+
+.opts button{
+    background-color: #ddd;
+} /* Option to Attack, Defend and Reset: Background Color of the button */
 
 #bg{
     position: absolute;
@@ -149,7 +165,7 @@ a{
     width: 71vw;
     height: 57vh;
     bottom: 0%;
-}
+} /* Background Image Adjustment */
 
 .themes{
     border: 1px solid black;
@@ -157,15 +173,16 @@ a{
     display: inline-flex;
     margin-top: 2vh;
     margin-left: 6vw;
-    gap: 10vw;
+    gap: 5vw;
     justify-content: center;
     width: 85vw;
-}
+    background-color: #a4b8c4;
+} /* Adjusting themes' choice border */
+
 .themes button{
-    background-color: rgb(124, 146, 139);
-    font-weight: bold;
-}
+    background-color: rgb(145, 158, 154);
+} /* Adjusting button of the themes */
 
 .events p{
     font-size: 70%;
-}
+}/* Adjusting font of the events */
