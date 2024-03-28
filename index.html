@@ -1,371 +1,501 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Punching Game</title>
-    <link rel="stylesheet" href="style.css">
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Punching Game</title>
+ <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>The Simulation, "Ready. FIGHT!"</h1>
+    <h1>The Simulation, "Ready. FIGHT!"</h1> <!-- Simulation Title-->
 
-    <section class="flipcoin">
-        <h3>Click the button to toss a coin.</h3>
-        <div class="dropdown"> <!--Dropdown Option for Heads and Tails for the Player-->
-            <button onclick ="myFunction()" class="dropbtn" id="tc">Coin Toss</button>
-            <div id="myDropdown" class="dropdown-content">
-                <a onclick="heads()" id="hb" href="#">Heads</a>
-                <a onclick="tails()" id="tb" href="#">Tails</a>
-            </div>
-            <p id="result"></p>
-            <br>
-            <p>Events:</p>
-            <section class="events"> <!--<p id> is used to specifically target and access specific Elements in Javascript-->
-                <p id="playchoice"></p>
-                <p id="event1"></p>
-                <p id="event2"></p>
-                <p id="event3"></p>
-            </section>
-        </div>
-    </section>
+     <section class="flipcoin">
+     <h3>Click the button to toss a coin.</h3>
+     <div class="dropdown"> <!--Dropdown Option for Heads and Tails for the Player-->
+         <button onclick ="myFunction()" class="dropbtn" id="tc">Coin Toss</button>
+         <div id="myDropdown" class="dropdown-content">
+             <a onclick="heads()" id="hb" href="#">Heads</a>
+             <a onclick="tails()" id="tb" href="#">Tails</a>
+         </div>
+         <p id="result"></p>
+         <br>
+         <p>Events:</p>
+         <section class="events"> <!--<p id> is used to specifically target and access specific Elements in Javascript-->
+             <p id="playchoice"></p>
+             <p id="event1"></p>
+             <p id="event2"></p>
+             <p id="event3"></p>
+         </section>
+     </div>
+     </section>
 
-    <section class="fight">
-        <section id="hpbar">
-            <p id="HPlayer"></p> 
-            <p id="HPponent"></p>
-        </section>
-        <section id="foe" class="main"> <!-- Skibidi Toilet in Full Health -->
-            <img id="image1" src=" ">
-        </section>
-        <section id="you" class="main"> <!---Cameraman in Full Health -->
-            <img id="image2" src=" ">
-        </section>
-        <img id="bg" src=" ">
-    </section>
+     <section class="fight"> <!-- Id for The Fight, HP Bar, Player of the Player and the Opponent -->
+     <section id="hpbar">
+         <p id="HPlayer"></p> 
+         <p id="HPponent"></p>
+     </section>
+         <section id="foe" class="main"> <!-- Skibidi Toilet in Full Health -->
+             <img id="image1" src=" ">
+         </section>
+         <section id="you" class="main"> <!---Cameraman in Full Health -->
+             <img id="image2" src=" ">
+         </section>
+         <img id="bg" src=" ">
+     </section>
 
-    <section class="opts"> <!-- Buttons for the option to Attack, Defend, and Reset -->
-        <button onclick="playerAttack()" id="atb" class="atkOrDef">Attack</button>
-        <button onclick="playerDefend()" id="dfb" class="atkOrDef">Defend</button>
-        <button onclick="resetBtn()" id="rtb">Reset.</button>
-    </section>
+     <section class="opts"> <!-- Buttons for the option to Attack, Defend, and Reset -->
+         <button onclick="playerAttack()" id="atb" class="atkOrDef">Attack</button>
+         <button onclick="playerDefend()" id="dfb" class="atkOrDef">Defend</button>
+         <button onclick="resetBtn()" id="rtb">Reset.</button>
+     </section>
 
-    <section class="themes">
-        <p>Themes (Click one before you start!): </p>
-        <button onclick="skibidiTheme()">Skibidi Theme</button>
-        <button onclick="valoTheme()">Valorant Theme</button>
-    </section>
+     <section class="themes"> <!-- Buttons Switching to Four (4) Different Themes-->
+         <p>Themes (Click one before you start!): </p>
+         <button onclick="skibidiTheme()">Skibidi Theme</button>
+         <button onclick="valoTheme()">Valorant Theme</button>
+         <button onclick="pokemonTheme()">Pokemon Theme</button>
+         <button onclick="mhaTheme()">MHA Theme</button>
+     </section>
 
-    <script>
-        // The Set Health of the Player and Skibidi Toilet's Health which is 100
-        var playerHP = 100; 
-        var opponentHP = 100;
-        var theme, choice, playerdmg, oppdmg, action, placeholder;
+ <script>
+ // The Set Health of the Player and Opponents's Health which is 100
+     var playerHP = 100; 
+     var opponentHP = 100;
+     var theme, choice, playerdmg, oppdmg, action, placeholder;
+ //Sets buttons for attack, defense, reset, and coin toss as constants
+     const atkbut = document.getElementById("atb");
+     const defbut = document.getElementById("dfb");
+     const resbut = document.getElementById("rtb");
+     const tossbut = document.getElementById("tc");
 
-        const atkbut = document.getElementById("atb");
-        const defbut = document.getElementById("dfb");
-        const resbut = document.getElementById("rtb");
-        const tossbut = document.getElementById("tc");
+     resbut.disabled = true;
+     atkbut.disabled = true;
+     defbut.disabled = true;
 
-        // Indicates the Player and Opponents Health
-        document.getElementById("HPlayer").innerHTML = "Player: " + playerHP;
-        document.getElementById("HPponent").innerHTML = "Opponent: " + opponentHP;
-
-        resbut.disabled = true;
-        atkbut.disabled = true;
-        defbut.disabled = true;
-
-
-        // Function for Heads
-        function heads(){
-            choice = 'head';
-            tossCoin('head');
-        }
+ // Function for Heads
+     function heads(){
+         choice = 'head';
+         tossCoin('head');
+     }
 
 
-        // Function for Tails
-        function tails(){
-            choice = 'tail';
-            tossCoin('tail');
-        }
+ // Function for Tails
+     function tails(){
+         choice = 'tail';
+         tossCoin('tail');
+     }
 
-        // Function TossCoin, as indicated by sir's instructions, the player has the option to choose 
-        // either 'Heads' or 'Tails'. The program will generate a random result that will produce again
-        // Either 'Heads' or 'Tails', if the player matches with the program, the player can have the
-        // The player has the advantage to attack first however the defend button is disabled
-        // If the player does not match with the program, they will not gain the first move and will have the option to attack or defend
+ // Function TossCoin, as indicated by sir's instructions, the player has the option to choose 
+ // either 'Heads' or 'Tails'. The program will generate a random result that will produce again
+ // Either 'Heads' or 'Tails', if the player matches with the program, the player can have the
+ // The player has the advantage to attack first however the defend button is disabled
+ // If the player does not match with the program, they will not gain the first move and will have the option to attack or defend
 
-        function tossCoin(choice){
-            var rand = Math.round(Math.random());
-            var coin, result;
-            atkbut.disabled = false;
-            if(rand == 0){
-                coin = 'head';
-                if(choice == coin){
-                    document.getElementById("result").innerHTML = "Coin is head. You chose head!";
-                }
-                else{
-                    document.getElementById("result").innerHTML = "Coin is head. You chose tail!";
-                    defbut.disabled = false;
-                }
-            }
-            else{
-                coin = 'tail';
-                if(choice == coin){
-                    document.getElementById("result").innerHTML = "Coin is tail. You chose tail!";
-                }
-                else{
-                    document.getElementById("result").innerHTML = "Coin is tail. You chose head!";
-                    defbut.disabled = false;
-                }
-            }
-            tossbut.disabled = true;
-            resbut.disabled = false;
-        }
+     function tossCoin(choice){
+         var rand = Math.round(Math.random());
+         var coin, result;
+         atkbut.disabled = false;
+         if(rand == 0){
+             coin = 'head';
+             if(choice == coin){
+                 document.getElementById("result").innerHTML = "Coin is head. You chose head!"; // The player chose Head and MATCHES with the program (Program also chose Head)
+             }
+             else{
+                 document.getElementById("result").innerHTML = "Coin is head. You chose tail!"; // The player chose tail and DOES NOT MATCH with the program (PROGRAM chose Head)
+                 defbut.disabled = false;
+             }
+         }
+         else{
+             coin = 'tail';
+             if(choice == coin){
+                 document.getElementById("result").innerHTML = "Coin is tail. You chose tail!"; // The player chose tail and MATCHES with the program (Program also chose Tail)
+             }
+             else{
+                 document.getElementById("result").innerHTML = "Coin is tail. You chose head!"; // The player chose Heda and DOES NOT MATCH with the program (PROGRAM chose Tail)
+                 defbut.disabled = false;
+             }
+         }
+         tossbut.disabled = true;
+         resbut.disabled = false;
+     }
 
-        function calculateDamage(){
-            var damage = Math.round(Math.random()*4)+1;
-            return damage;
-        } // Randomized Calculation for the damage, it ranges from 1 - 5.
+     function calculateDamage(){
+         var damage = Math.round(Math.random()*4)+1;
+         return damage;
+     } // Randomized Calculation for the damage, it ranges from 1 - 5.
 
-        function opponentAction(){
-            action = Math.round(Math.random());
-            return action;
-        } // Declaring and Randomizing the Function for the action of the opponent
+     function opponentAction(){
+         action = Math.round(Math.random());
+         return action;
+     } // Declaring and Randomizing the Function for the action of the opponent
 
-        function playerAttack(){
-            defbut.disabled = false;
-            document.getElementById("playchoice").innerHTML = "<b>You will attack!</b>\n";
-            playerdmg = calculateDamage();
-            if(opponentAction() == 1){
-                oppdmg = calculateDamage();
-                playerHP = playerHP - oppdmg;
-                opponentHP = opponentHP - playerdmg;
-                document.getElementById("event1").innerHTML = "You inflict " + playerdmg + " damage";
-                document.getElementById("event2").innerHTML = "Opponent inflicts " + oppdmg + " damage";
-                document.getElementById("event3").innerHTML = " ";
-            } // If the Player chose to attack and the opponent randomly attacks as well.
+     function playerAttack(){
+         defbut.disabled = false;
+         document.getElementById("playchoice").innerHTML = "<b>You will attack!</b>\n";
+         playerdmg = calculateDamage();
+         if(opponentAction() == 1){
+             oppdmg = calculateDamage();
+             playerHP = playerHP - oppdmg;
+             opponentHP = opponentHP - playerdmg;
+             document.getElementById("event1").innerHTML = "You inflict " + playerdmg + " damage";
+             document.getElementById("event2").innerHTML = "Opponent inflicts " + oppdmg + " damage";
+             document.getElementById("event3").innerHTML = " ";
+         } // If the Player chose to attack and the opponent randomly attacks as well.
+         else{
+             if(playerdmg - 3 <= 0){
+                 document.getElementById("event1").innerHTML = "You attempted to inflict " + playerdmg + " damage";
+                 document.getElementById("event2").innerHTML = "The opponent completely blocked the attack";
+                 document.getElementById("event3").innerHTML = " ";
+             } // If the Player chose to attack and the opponent decided to completely blocked the attack.
+             else{
+                 placeholder = playerdmg - 3;
+                 opponentHP = opponentHP - placeholder;
+                 document.getElementById("event1").innerHTML = "You attempted to inflict " + playerdmg + " damage";
+                 document.getElementById("event2").innerHTML = "Opponent defended from the attack";
+                 document.getElementById("event3").innerHTML = "You inflicted " + placeholder + " damage";
+             } // If the Player chose to attack and the opponent defended from the attack but still inflicted damage
+         }
+         healthStatus()
+         checkHealth();
 
-            else{
-                if(playerdmg - 3 <= 0){
-                    document.getElementById("event1").innerHTML = "You attempted to inflict " + playerdmg + " damage";
-                    document.getElementById("event2").innerHTML = "The opponent completely blocked the attack";
-                    document.getElementById("event3").innerHTML = " ";
-                } // If the Player chose to attack and the opponent decided to completely blocked the attack.
+ // Player Chose Skibidi Theme and sets the characters Camera and Toilet
+         if(theme == 1){
+             cameraHP(playerHP);
+             toiletHP(opponentHP);
+         }
+ // Player Chose Valorant Theme and sets the characters Deadlock and Wingman
+         else if(theme == 2){
+             deadlockHP(playerHP);
+             wingmanHP(opponentHP);
+         }
+ // Player Chose Pokemon Theme and sets the characters Magikar and Bidoof
+         else if(theme == 3){
+             magikarpHP(playerHP);
+             bidoofHP(opponentHP);
+         }
 
-                else{
-                    placeholder = playerdmg - 3;
-                    opponentHP = opponentHP - placeholder;
-                    document.getElementById("event1").innerHTML = "You attempted to inflict " + playerdmg + " damage";
-                    document.getElementById("event2").innerHTML = "Opponent defended from the attack";
-                    document.getElementById("event3").innerHTML = "You inflicted " + placeholder + " damage";
-                } // If the Player chose to attack and the opponent defended from the attack
-            }
-            healthStatus()
-            checkHealth();
-            if(theme == 1){
-                cameraHP(playerHP);
-                toiletHP(opponentHP);
-            }
-            else{
-                deadlockHP(playerHP);
-                wingmanHP(opponentHP);
-            }
-        }
+ // Player Chose My Hero Academia theme and sets the characters Todoroki and Kettle
+         else{
+             todorokiHP(playerHP);
+             kettleHP(opponentHP);
+         }
+     }
 
-        function playerDefend(){
-            document.getElementById("playchoice").innerHTML = "<b>You will defend!</b>\n";
-            if(opponentAction() == 1){
-                oppdmg = calculateDamage();
-                if(oppdmg - 3 <= 0){
-                    document.getElementById("event1").innerHTML = "Opponent attempted to inflict " + oppdmg + " damage";
-                    document.getElementById("event2").innerHTML = "You completely blocked the attack";
-                    document.getElementById("event3").innerHTML = " ";
-                } // If the Player chose to defend and the opponent decided to inflict
-                else{
-                    placeholder = oppdmg - 3;
-                    playerHP = playerHP - placeholder;
-                    document.getElementById("event1").innerHTML = "Opponent attempted to inflict " + oppdmg + " damage";
-                    document.getElementById("event2").innerHTML = "You defended from the attack";
-                    document.getElementById("event3").innerHTML = "Opponent inflicts " + placeholder + " damage";
-                } // If the Player chose to defend and the opponent attempted to inflict the attack
-    
-            }
-            else{
-                document.getElementById("event1").innerHTML = "Both chose to defend";
-                document.getElementById("event2").innerHTML = " ";
-                document.getElementById("event3").innerHTML = " ";
-            }  // If both the Player and Opponent chose to defend
-            healthStatus()
-            checkHealth();
-        }
+     function playerDefend(){
+         document.getElementById("playchoice").innerHTML = "<b>You will defend!</b>\n";
+         if(opponentAction() == 1){
+             oppdmg = calculateDamage();
+             if(oppdmg - 3 <= 0){
+                 document.getElementById("event1").innerHTML = "Opponent attempted to inflict " + oppdmg + " damage";
+                 document.getElementById("event2").innerHTML = "You completely blocked the attack";
+                 document.getElementById("event3").innerHTML = " ";
+             } // If the Player chose to defend and the opponent decided to inflict
+             else{
+                 placeholder = oppdmg - 3;
+                 playerHP = playerHP - placeholder;
+                 document.getElementById("event1").innerHTML = "Opponent attempted to inflict " + oppdmg + " damage";
+                 document.getElementById("event2").innerHTML = "You defended from the attack";
+                 document.getElementById("event3").innerHTML = "Opponent inflicts " + placeholder + " damage";
+             } // If the Player chose to defend and the opponent attempted to inflict the attack
+ 
+         }
+         else{
+             document.getElementById("event1").innerHTML = "Both chose to defend";
+             document.getElementById("event2").innerHTML = " ";
+             document.getElementById("event3").innerHTML = " ";
+         } // If both the Player and Opponent chose to defend
+         healthStatus()
+         checkHealth();
+     }
 
-        function healthStatus(){
-            document.getElementById("HPlayer").innerHTML = "Player: " + playerHP;
-            document.getElementById("HPponent").innerHTML = "Opponent: " + opponentHP;
-        }
+  // Indicates the Player and Opponents Health
+     function healthStatus(){
+         document.getElementById("HPlayer").innerHTML = "Player: " + playerHP;
+         document.getElementById("HPponent").innerHTML = "Opponent: " + opponentHP;
+     }
 
-        function checkHealth(){
-            if(opponentHP <= 0){
-                opponentHP = 0;
-                document.getElementById("HPponent").innerHTML = "Opponent: " + opponentHP;
-                document.getElementById("event1").innerHTML = "<b>Player wins!</b>";
-                document.getElementById("event2").innerHTML = " ";
-                document.getElementById("event3").innerHTML = " ";
-                atkbut.disabled = true;
-                defbut.disabled = true;
-            } // Player wins if the Opponent's HP is equal and reaches first to zero.
-            if(playerHP <= 0){
-                playerHP = 0;
-                document.getElementById("HPlayer").innerHTML = "Player: " + playerHP;
-                document.getElementById("event1").innerHTML = "<b>Opponent wins!</b>";
-                document.getElementById("event2").innerHTML = " ";
-                document.getElementById("event3").innerHTML = " ";
-                atkbut.disabled = true;
-                defbut.disabled = true;
-            } // Opponent wins if the Player's HP is equal and reaches first to Zero
-        }
+     function checkHealth(){
+         if(opponentHP <= 0){
+             opponentHP = 0;
+             document.getElementById("HPponent").innerHTML = "Opponent: " + opponentHP;
+             document.getElementById("event1").innerHTML = "<b>Player wins!</b>";
+             document.getElementById("event2").innerHTML = " ";
+             document.getElementById("event3").innerHTML = " ";
+             atkbut.disabled = true;
+             defbut.disabled = true;
+         } // Player wins if the Opponent's HP is equal and reaches first to zero.
+         if(playerHP <= 0){
+             playerHP = 0;
+             document.getElementById("HPlayer").innerHTML = "Player: " + playerHP;
+             document.getElementById("event1").innerHTML = "<b>Opponent wins!</b>";
+             document.getElementById("event2").innerHTML = " ";
+             document.getElementById("event3").innerHTML = " ";
+             atkbut.disabled = true;
+             defbut.disabled = true;
+         } // Opponent wins if the Player's HP is equal and reaches first to Zero
+     }
 
-        function resetBtn(){
-            opponentHP = 100;
-            playerHP = 100;
 
-            document.getElementById("HPlayer").innerHTML = "Player: " + playerHP;
-            document.getElementById("HPponent").innerHTML = "Opponent: " + opponentHP;
+ // Function resetBtn reset the theme and the entire game and the theme
+     function resetBtn(){
+         opponentHP = 100;
+         playerHP = 100;
 
-            document.getElementById("result").innerHTML = " ";
-            document.getElementById("playchoice").innerHTML = " ";
-            document.getElementById("event1").innerHTML = " ";
-            document.getElementById("event2").innerHTML = " ";
-            document.getElementById("event3").innerHTML = " ";
+         document.getElementById("HPlayer").innerHTML = "Player: " + playerHP;
+         document.getElementById("HPponent").innerHTML = "Opponent: " + opponentHP;
 
-            tossbut.disabled = false;
-            atkbut.disabled = true;
-            defbut.disabled = true;
-            resbut.disabled = true;
-            
-            image1.src=" ";
-            image2.src=" ";
-            bg.src=" ";
-            
-        } // Resets the entire game.
+         document.getElementById("result").innerHTML = " ";
+         document.getElementById("playchoice").innerHTML = " ";
+         document.getElementById("event1").innerHTML = " ";
+         document.getElementById("event2").innerHTML = " ";
+         document.getElementById("event3").innerHTML = " ";
 
-        function myFunction(){
-            document.getElementById("myDropdown").classList.toggle("show");
-        } // Dropdown Function of the Coin Toss
+         tossbut.disabled = false;
+         atkbut.disabled = true;
+         defbut.disabled = true;
+         resbut.disabled = true;
+ 
+         image1.src=" ";
+         image2.src=" ";
+         bg.src=" ";
+     } 
 
-        window.onclick = function(event){
-            if(!event.target.matches('.dropbtn')){
-                var dropdowns = document.getElementsByClassName("dropdown-content");
-                var i;
-                for(i = 0; i < dropdowns.length; i++){
-                    var openDropdown = dropdowns[i];
-                    if(openDropdown.classList.contains('show')){
-                    openDropdown.classList.remove('show');
-                    }
-                }
-            }
-        }
+ // Dropdown Function of the Coin Toss
+ function myFunction(){
+ document.getElementById("myDropdown").classList.toggle("show");
+ } 
 
-        function toiletHP(opponentHP){
-            var image = document.getElementById("image1");
-            if (opponentHP > 80){
-                image = image1.src="toiletFull.png";
-            } // If Toilet is Above 80
-            else if ((opponentHP <= 80)&&(opponentHP > 60)){
-                image = image1.src="toiletEighty.png";
-            } // If Toilet is 80 and Greater than 60
-            else if ((opponentHP <= 60)&&(opponentHP > 40)){
-                image = image1.src="toiletSixty.png";
-            } // If Toilet is 60 and Greater than 40
-            else if ((opponentHP <= 40)&&(opponentHP > 20)){
-                image =image1.src="toiletForty.png";
-            } // If Toilet is 40 and Greater than 20
-            else if ((opponentHP <= 20)&&(opponentHP > 0)){
-                image = image1.src="toiletTwenty.png";
-            } // If Toilet is 20 and Greater than 0
-            else {
-                image = image1.src="toiletdead.png";
-            } // If Toilet has no health
-        }
+ window.onclick = function(event){
+ if(!event.target.matches('.dropbtn')){
+ var dropdowns = document.getElementsByClassName("dropdown-content");
+ var i;
+ for(i = 0; i < dropdowns.length; i++){
+ var openDropdown = dropdowns[i];
+ if(openDropdown.classList.contains('show')){
+ openDropdown.classList.remove('show');
+ }
+ }
+ }
+ }
 
-        function cameraHP(playerHP){
-            var image2 = document.getElementById("image2");
-            if (playerHP > 80){
-                image2 = image2.src="cameraFull.png";
-            } // If Camera is Above 80
-            else if ((playerHP <= 80)&&(playerHP > 60)){
-                image2 = image2.src="cameraEighty.png";
-            } // If Camera is 80 and Greater than 60
-            else if ((playerHP <= 60)&&(playerHP > 40)){
-                image2 = image2.src="cameraSixty.png";
-            } // If Camera is 60 and Greater than 40
-            else if ((playerHP <= 40)&&(playerHP > 20)){
-                image2 =image2.src="cameraForty.png";
-            } // If Camera is 40 and Greater than 20
-            else if ((playerHP <= 20)&&(playerHP > 0)){
-                image2 = image2.src="cameraTwenty.png";
-            } // If Camera is 20 and Greater than 0
-            else {
-                image2 = image2.src="cameradead.png";
-            } // If Camera has no health
-        }
 
-        function wingmanHP(opponentHP){
-            var image = document.getElementById("image1");
-            if (opponentHP > 80){
-                image = image1.src="wingmanFull.png";
-            }
-            else if ((opponentHP <= 80)&&(opponentHP > 60)){
-                image = image1.src="wingmanEighty.png";
-            }
-            else if ((opponentHP <= 60)&&(opponentHP > 40)){
-                image = image1.src="wingmanSixty.png";
-            }
-            else if ((opponentHP <= 40)&&(opponentHP > 20)){
-                image =image1.src="wingmanForty.png";
-            }
-            else if ((opponentHP <= 20)&&(opponentHP > 0)){
-                image = image1.src="wingmanTwenty.png";
-            }
-            else {
-                image = image1.src="wingmandead.png";
-            }
-        }
+ // Function ToiletHP switches Skibidi Toilet's current state depending on its HP
+ function toiletHP(opponentHP){
+ var image = document.getElementById("image1");
+ if (opponentHP > 80){
+ image = image1.src="toiletFull.png";
+ } // If Toilet is Above 80
+ else if ((opponentHP <= 80)&&(opponentHP > 60)){
+ image = image1.src="toiletEighty.png";
+ } // If Toilet is 80 and Greater than 60
+ else if ((opponentHP <= 60)&&(opponentHP > 40)){
+ image = image1.src="toiletSixty.png";
+ } // If Toilet is 60 and Greater than 40
+ else if ((opponentHP <= 40)&&(opponentHP > 20)){
+ image =image1.src="toiletForty.png";
+ } // If Toilet is 40 and Greater than 20
+ else if ((opponentHP <= 20)&&(opponentHP > 0)){
+ image = image1.src="toiletTwenty.png";
+ } // If Toilet is 20 and Greater than 0
+ else {
+ image = image1.src="toiletdead.png";
+ } // If Toilet has no health
+ }
 
-        function deadlockHP(playerHP){
-            var image2 = document.getElementById("image2");
-            if (playerHP > 80){
-                image = image2.src="didluckFull.png";
-            }
-            else if ((playerHP <= 80)&&(playerHP > 60)){
-                image = image2.src="didluckEighty.png";
-            }
-            else if ((playerHP <= 60)&&(playerHP > 40)){
-                image = image2.src="didluckSixty.png";
-            }
-            else if ((playerHP <= 40)&&(playerHP > 20)){
-                image =image2.src="didluckForty.png";
-            }
-            else if ((playerHP <= 20)&&(playerHP > 0)){
-                image = image2.src="didluckTwenty.png";
-            }
-            else{
-                image = image2.src="didluckdead.png";
-            }
-        }
+ // Function cameraHP switches Camera's current state depending on its HP
+ function cameraHP(playerHP){
+ var image2 = document.getElementById("image2");
+ if (playerHP > 80){
+ image2 = image2.src="cameraFull.png";
+ } // If Camera is Above 80
+ else if ((playerHP <= 80)&&(playerHP > 60)){
+ image2 = image2.src="cameraEighty.png";
+ } // If Camera is 80 and Greater than 60
+ else if ((playerHP <= 60)&&(playerHP > 40)){
+ image2 = image2.src="cameraSixty.png";
+ } // If Camera is 60 and Greater than 40
+ else if ((playerHP <= 40)&&(playerHP > 20)){
+ image2 =image2.src="cameraForty.png";
+ } // If Camera is 40 and Greater than 20
+ else if ((playerHP <= 20)&&(playerHP > 0)){
+ image2 = image2.src="cameraTwenty.png";
+ } // If Camera is 20 and Greater than 0
+ else {
+ image2 = image2.src="cameradead.png";
+ } // If Camera has no health
+ }
 
-        function skibidiTheme(){
-            theme = 1;
-            image1.src="toiletFull.png";
-            image2.src="cameraFull.png";
-            bg.src="sewer.png"
-        }
-        function valoTheme(){
-            theme = 2;
-            image1.src="wingmanFull.png";
-            image2.src="didluckFull.png";
-            bg.src="pearl.jpg";
-        }
-    </script>
+
+ // Function WingmanHP switches Wingman's current state depending on its HP
+ function wingmanHP(opponentHP){
+ var image = document.getElementById("image1");
+ if (opponentHP > 80){
+ image = image1.src="wingmanFull.png";
+ } // If Wingman's HP is Above 80
+ else if ((opponentHP <= 80)&&(opponentHP > 60)){
+ image = image1.src="wingmanEighty.png";
+ } // If Wingman's HP is 80 and Greater than 60
+ else if ((opponentHP <= 60)&&(opponentHP > 40)){
+ image = image1.src="wingmanSixty.png";
+ } // If Wingman's HP is 60 and Greater than 40
+ else if ((opponentHP <= 40)&&(opponentHP > 20)){
+ image =image1.src="wingmanForty.png";
+ } // If Wingman's HP is 40 and Greater than 20
+ else if ((opponentHP <= 20)&&(opponentHP > 0)){
+ image = image1.src="wingmanTwenty.png";
+ } // If Wingman's HP is 20 and Greater than 0
+ else {
+ image = image1.src="wingmandead.png";
+ } // If Wingman has no health
+ }
+
+ // Function DeadlockHP switches Deadlock's current state depending on its HP
+ function deadlockHP(playerHP){
+ var image2 = document.getElementById("image2");
+ if (playerHP > 80){
+ image = image2.src="didluckFull.png";
+ } // If deadlock's HP is Above 80
+ else if ((playerHP <= 80)&&(playerHP > 60)){
+ image = image2.src="didluckEighty.png";
+ } // If deadlock's HP is 80 and Greater than 60
+ else if ((playerHP <= 60)&&(playerHP > 40)){
+ image = image2.src="didluckSixty.png";
+ } // If deadlock's HP is 60 and Greater than 40
+ else if ((playerHP <= 40)&&(playerHP > 20)){
+ image =image2.src="didluckForty.png";
+ } // If deadlock's HP is 40 and Greater than 20
+ else if ((playerHP <= 20)&&(playerHP > 0)){
+ image = image2.src="didluckTwenty.png";
+ } // If deadlock's HPis 20 and Greater than 0
+ else{
+ image = image2.src="didluckdead.png";
+ } // If deadlock has no health
+ }
+
+ // Function bidoofHP switches bidoof's current state depending on its HP
+ function bidoofHP(opponentHP){
+ var image = document.getElementById("image1");
+ if (opponentHP > 80){
+ image = image1.src="bidoofFull.png";
+ } // If bidoof's HP is Above 80
+ else if ((opponentHP <= 80)&&(opponentHP > 60)){
+ image = image1.src="bidoofEighty.png";
+ } // If bidoof's HP is 80 and Greater than 60
+ else if ((opponentHP <= 60)&&(opponentHP > 40)){
+ image = image1.src="bidoofSixty.png";
+ } // If bidoof's HP is 60 and Greater than 40
+ else if ((opponentHP <= 40)&&(opponentHP > 20)){
+ image =image1.src="bidoofForty.png";
+ } // If bidoof's HP is 40 and Greater than 20
+ else if ((opponentHP <= 20)&&(opponentHP > 0)){
+ image = image1.src="bidoofTwenty.png";
+ } // If bidoof's HPis 20 and Greater than 0
+ else {
+ image = image1.src="bidoofdead.png";
+ } // If deadlock has no health
+ }
+
+ // Function magikarHP switches magikar's current state depending on its HP
+ function magikarpHP(playerHP){
+ var image2 = document.getElementById("image2");
+ if (playerHP > 80){
+ image = image2.src="karpFull.png";
+ } // If magikar's HP is Above 80
+ else if ((playerHP <= 80)&&(playerHP > 60)){
+ image = image2.src="karpEighty.png";
+ } // If magikar's HP is 80 and Greater than 60
+ else if ((playerHP <= 60)&&(playerHP > 40)){
+ image = image2.src="karpSixty.png";
+ } // If magikar's HP is 60 and Greater than 40
+ else if ((playerHP <= 40)&&(playerHP > 20)){
+ image =image2.src="karpForty.png";
+ } // If magikar's HP is 40 and Greater than 20
+ else if ((playerHP <= 20)&&(playerHP > 0)){
+ image = image2.src="karpTwenty.png";
+ } // If magikar's HPis 20 and Greater than 0
+ else{
+ image = image2.src="karpDead.png";
+ } // If magikar has no health
+ }
+
+ 
+ // Function kettleHP switches kettle's current state depending on its HP
+ function kettleHP(opponentHP){
+ var image = document.getElementById("image1");
+ if (opponentHP > 80){
+ image = image1.src="kettleFull.png";
+ } // If Kettle 's HP is Above 80
+ else if ((opponentHP <= 80)&&(opponentHP > 60)){
+ image = image1.src="kettleEighty.png";
+ } // If Kettle's HP is 80 and Greater than 60
+ else if ((opponentHP <= 60)&&(opponentHP > 40)){
+ image = image1.src="kettleSixty.png";
+ } // If Kettle's HP is 60 and Greater than 40
+ else if ((opponentHP <= 40)&&(opponentHP > 20)){
+ image =image1.src="kettleForty.png";
+ } // If Kettle's HP is 40 and Greater than 20
+ else if ((opponentHP <= 20)&&(opponentHP > 0)){
+ image = image1.src="kettleTwenty.png";
+ } // If Kettle's HPis 20 and Greater than 0
+ else {
+ image = image1.src="kettleDead.png";
+ } // If Kettle has no health
+ }
+
+ // Function todorokiHP switches Todoroki's current state depending on its HP
+ function todorokiHP(playerHP){
+ var image2 = document.getElementById("image2");
+ if (playerHP > 80){
+ image = image2.src="todorokiFull.png";
+ } // If Todoroki's HP is Above 80
+ else if ((playerHP <= 80)&&(playerHP > 60)){
+ image = image2.src="todorokiEighty.png";
+ } // If Todoroki's HP is 80 and Greater than 60
+ else if ((playerHP <= 60)&&(playerHP > 40)){
+ image = image2.src="todorokiSixty.png";
+ } // If Todoroki's HP is 60 and Greater than 40
+ else if ((playerHP <= 40)&&(playerHP > 20)){
+ image =image2.src="todorokiForty.png";
+ } // If Torodoroki's HP is 40 and Greater than 20
+ else if ((playerHP <= 20)&&(playerHP > 0)){
+ image = image2.src="todorokiTwenty.png";
+ } // If Kettle's HPis 20 and Greater than 0
+ else{
+ image = image2.src="todorokiDead.png";
+ } // If Kettle has no health
+ }
+
+ // Function for Skibidi theme, sets the Player to Camera and sets the Opponent to Skibidi Toilet
+ function skibidiTheme(){
+ theme = 1;
+ image1.src="toiletFull.png";
+ image2.src="cameraFull.png";
+ bg.src="sewer.png"
+ }
+
+ // Function for Valorant Theme, sets the Player to Deadlock and sets the Opponent to Wingman
+ function valoTheme(){
+ theme = 2;
+ image1.src="wingmanFull.png";
+ image2.src="didluckFull.png";
+ bg.src="pearl.jpg";
+ }
+
+ // Function for Pokemon Theme, sets the Player to Karp and sets the Opponent to Bidoof
+ function pokemonTheme(){
+ theme = 3;
+ image1.src="bidoofFull.png";
+ image2.src="karpFull.png";
+ bg.src="gym.jpg";
+ }
+
+ // Function for MHA Theme, sets the Player to Todoroki and sets the Opponent to Kettle
+ function mhaTheme(){
+ theme = 4;
+ image1.src="kettleFull.png";
+ image2.src="todorokiFull.png";
+ bg.src="house.jpg";
+ }
+ </script>
 </body>
 </html>
