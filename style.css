@@ -57,10 +57,24 @@ display: block;
     height: 57vh;
 } /* */
 
-#toilet img{
+.fight p{
+    color: rgb(145, 145, 145);
+}
+
+#foe img{
     position: absolute;
-    top: 5%;
+    top: 10%;
     left: 56.5%;
+    width: 17vw;
+    height: 23vw;
+}
+
+#you img{
+  position: absolute;
+  top: 10%;
+  right: 61%;
+  width: 17vw;
+  height: 23vw;
 }
 
 h1{
@@ -127,4 +141,27 @@ a{
     padding-bottom: 1.5vh;
     margin-top: 2.5vh;
     margin-left: 6vw;
+}
+
+#bg{
+    position: absolute;
+    z-index: -3;
+    width: 71vw;
+    height: 57vh;
+    bottom: 0%;
+}
+
+.themes{
+    border: 1px solid black;
+    border-radius: 5px;
+    display: inline-flex;
+    margin-top: 2vh;
+    margin-left: 6vw;
+    gap: 10vw;
+    justify-content: center;
+    width: 85vw;
+}
+.themes button{
+    background-color: rgb(124, 146, 139);
+    font-weight: bold;
 }
